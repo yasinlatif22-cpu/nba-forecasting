@@ -39,6 +39,7 @@ Can information available before a season starts predict that season's regular-s
 - Adding net rating, an offense/defense split, or four-factor statistics (raw or league-relative) gave MAE 7.69 to 7.75 and RMSE 9.73 to 9.83. That is not distinguishable from 7.79 and 9.79 on 300 rows, so the one-variable model was kept.
 - The league's average offensive rating rose from about 106 in 2010-11 to about 114 by 2023-24, and the average eFG% from .499 (2010-11) to .543 (2024-25). Converting inputs to league-relative values did not change forecast accuracy. The raw offense and defense coefficients came out equal and opposite (+0.019 and -0.019; test that they sum to zero, p = 0.89), so the shared drift cancels in the difference.
 - Win percentage and net rating correlate at 0.97. Including both gave a VIF of 14.6 and a win-percentage coefficient whose confidence interval includes zero, while R-squared barely moved. Individual coefficients are not interpretable in that model.
+- The slope is similar in three five-season eras: 0.644 (2011-2015), 0.571 (2016-2020) and 0.594 (2021-2025), with overlapping confidence intervals; a test that all three are equal gives p = 0.68. With 150 team-seasons per era this can only detect fairly large changes, so it does not prove stability. Out-of-sample error was higher in 2021-2025 than in 2016-2020 (fitted MAE 8.35 vs 7.23 wins; naive 8.84 vs 8.05), a difference of roughly 1.6 standard errors. I have not identified a cause.
 - Seven of the eight largest out-of-sample misses are collapses (predicted well above actual). I have not yet checked the causes systematically.
 
 Full detail is in [MODEL_HISTORY.md](MODEL_HISTORY.md).
@@ -104,7 +105,6 @@ File names and season constants are hard-coded for now.
 - Roster continuity and star availability.
 - Playoff and championship probabilities, with calibration checks.
 - Comparison with preseason betting markets.
-- Stability of the relationships across NBA eras.
 - A SQLite store and a small dashboard.
 
 ## Technology
