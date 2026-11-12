@@ -2,9 +2,13 @@
 
 Forecasts every NBA team's regular-season wins, playoff odds and title odds **before the season starts**, publishes the forecast in this repository before the first game, and scores it against what actually happens. The project is built around one constraint: honest out-of-sample evaluation. No look-ahead, no random train/test splits, and probabilities judged on calibration rather than on whether the favorite won.
 
-**Status:** the 2026-27 forecasts were frozen on October 3, 2026, before the season's October 21 tip-off. They have not been scored. Scoring happens after the season ends, and nothing below claims the model works on 2026-27, because that is not yet known.
+**Status:** the 2026-27 forecasts were frozen on October 3, 2026, before the season's October 20 opening night. **They have not been scored.** The season is still in progress (the regular season ends April 11, 2027, status as of November 12, 2026), scoring happens only after it ends, and `score_season.py` refuses to run on an incomplete season. Nothing below claims the model works on 2026-27, because that is not yet known.
+
+**Full 30-team frozen forecast:** [wins and 80% intervals](predictions/2026_27_predictions_v1.0.csv) | [playoff, conference finals, Finals and title probabilities](predictions/2026_27_playoff_probabilities_v1.0.csv)
 
 ![Naive forecast vs. fitted forecast, walk-forward test](figures/walk_forward_vs_naive.png)
+
+*Historical result (walk-forward, 2016-17 to 2025-26, 300 team-seasons; not a 2026-27 result):* the fitted forecast's mean absolute error was **7.79 wins**, against **8.45 wins** for the naive last-season-win-% forecast.
 
 ## Results so far
 
@@ -51,7 +55,7 @@ Made from 2025-26 results only. It does not know about the 2026 offseason, trade
 
 ![Frozen 2026-27 title probabilities](figures/title_probabilities_2026_27.png)
 
-- Files: [`predictions/2026_27_predictions_v1.0.csv`](predictions/2026_27_predictions_v1.0.csv) (wins) and [`predictions/2026_27_playoff_probabilities_v1.0.csv`](predictions/2026_27_playoff_probabilities_v1.0.csv) (playoffs, conference finals, Finals, title). Each records its creation time and model parameters. They are never edited after creation, and the scripts refuse to overwrite them.
+- Files (full 30 teams): [`predictions/2026_27_predictions_v1.0.csv`](predictions/2026_27_predictions_v1.0.csv) (wins) and [`predictions/2026_27_playoff_probabilities_v1.0.csv`](predictions/2026_27_playoff_probabilities_v1.0.csv) (playoffs, conference finals, Finals, title). Each records its creation time and model parameters. They are never edited after creation, and the scripts refuse to overwrite them.
 - Commits: wins forecast in `aa41ee0`, playoff and title probabilities in `f0b77a4`.
 - Intervals are the 10th and 90th percentiles of past walk-forward errors, about -12.5 to +11.6 wins around each prediction.
 - Both a raw and a normalized version of each probability are frozen. Out-of-sample, the raw deeper-round probabilities summed to less than the bracket totals (3.80 vs. 4, 1.86 vs. 2, 0.91 vs. 1 per season on average), while for 2026-27 the raw Finals and title probabilities sum to more (2.18 and 1.13). The normalized version shifts every team's log-odds by one common amount so each event sums to the bracket total (16 / 4 / 2 / 1), which is known before the season. Normalized is the headline version, chosen on principle before seeing any results.
